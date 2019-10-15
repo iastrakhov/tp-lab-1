@@ -1,13 +1,13 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <string.h>
-#include "task4.h"
-using namespace std;
+#define _CRT_SECURE_NO_WARNINGS
 
-int main() {
-	char* x = (char*)"123456789";
-	char* y = (char*)"000000001";
-	char* ans = sum(x, y);
-	cout << ans << endl;
+#include "task4.h"
+#include <iostream>
+
+
+int main()
+{
+	char s1[] = "123456789";
+	char s2[] = "000000001";
+	printf("%s", sum(s1, s2));
+	return 0;
 }

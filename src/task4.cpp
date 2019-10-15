@@ -1,55 +1,47 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <string.h>
 #include "task4.h"
-using namespace std;
+#include <string.h>
+#include <malloc.h>
 
-char* sum(char* x, char* y) {
+char* sum(char* x, char* y)
+{
+	int len;
+	int len1 = strlen(x);
+	int len2 = strlen(y);
 
-	int x_len = strlen(x);
-	int y_len = strlen(y);
-
-	char* a = new char[x_len + 1];
-	char* b = new char[y_len + 1];
-
-	for (int i = 0; i < x_len; i++)
-		a[i] = x[x_len - i - 1];
-	a[x_len] = '\0';
-
-	for (int i = 0; i < y_len; i++)
-		b[i] = y[y_len - i - 1];
-	b[y_len] = '\0';
-
-	int res_len = max(x_len, y_len);
-	vector<char> res;
-	int r = 0;
-
-	for (int i = 0; i < res_len; i++) {
-		if (i < x_len) {
-			r += a[i] - '0';
-		}
-
-		if (i < y_len) {
-			r += b[i] - '0';
-		}
-
-		res.push_back(r % 10);
-		r /= 10;
+	if (len1 > len2)
+	{
+		len = len1;
+	}
+	else
+	{
+		len = len2;
 	}
 
-	if (r != 0) res.push_back(r);
-	res_len = res.size();
+	char* sum = (char*)malloc((len + 1) * sizeof(char));
+	int s = 0;
 
+	for (int i = 1; i <= len + 1; i++)
+	{
+		if (i <= len1)
+		{
+			s += (*(x + (len1 - i)) - '0');
+		}
+		if (i <= len2)
+		{
+			s += (*(y + (len2 - i)) - '0');
+		}
+		*(sum + len + 1 - i) = s % 10 + '0';
+		s = s / 10;
+	}
 
-	for (int i = 0; i < res_len / 2; i++)
-		swap(res[i], res[res_len - i - 1]);
+	*(sum + len + 1) = 0;
 
-	char* str = new char[res_len + 1];
-
-	for (int i = 0; i < res_len; i++)
-		str[i] = (char)(res[i] + '0');
-
-	str[res_len] = '\0';
-	return str;
+	if (*(sum) == '0')
+	{
+		for (int i = 0; i <= len; i++)
+		{
+			*(sum + i) = *(sum + i + 1);
+		}
+	}
+	return sum;
 }
